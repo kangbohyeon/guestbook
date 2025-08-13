@@ -75,5 +75,19 @@ pipeline {
             }
         }
     }
+    post { 
+        success { 
+            slackSend(tokenCredentialId: 'slack-token'
+                , channel: '#일반'
+                , color: 'good'
+                , message: "${JOB_NAME} (${BUILD_NUMBER}) 빌드가 성공적으로 끝났습니다. Details: (<${BUILD_URL} | here >)")
+        }
+        failure { 
+            slackSend(tokenCredentialId: 'slack-token'
+                , channel: '#일반'
+                , color: 'danger'
+                , message: "${JOB_NAME} (${BUILD_NUMBER}) 빌드가 실패하였습니다. Details: (<${BUILD_URL} | here >)")
+    }
+  }
 }
 
